@@ -4,6 +4,7 @@ import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import jakarta.enterprise.inject.spi.CDI;
+import jakarta.inject.Inject;
 
 @QuarkusMain
 public class Main {
@@ -20,8 +21,8 @@ public class Main {
         //Modelos IoC
         //1. DI
 
-        // @Inject
-        // private PedidoService pedidoService;
+        @Inject
+        private PedidoService pedidoService;
 
         //2. Service Locator (Lookup)
         //private PedidoService pedidoService =CDI.current().select(PedidoService.class).get();

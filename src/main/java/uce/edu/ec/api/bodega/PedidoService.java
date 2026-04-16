@@ -1,11 +1,10 @@
 package uce.edu.ec.api.bodega;
 
-import io.quarkus.arc.Unremovable;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @ApplicationScoped // Siempre fuera de la clase
-@Unremovable
+//@Unremovable hace que el contenedor no lo elimine 
 public class PedidoService {
 
     // DI por atributo
