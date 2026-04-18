@@ -31,12 +31,23 @@ public class PedidoService {
     @Inject
     private NotificadorSelector notificadorSelector;
 
-    public void registrar(Pedido pedido) {
+    @Inject 
+    private ComprabanteSelector comprobanteSelector;
+
+   // private PagoEstrategia pago;
+
+    public void registrar(Pedido pedido, PagoEstrategia pago) {
 
         System.out.println("Registrando pedido");
         System.out.println("cliente " + pedido.getCliente());
         System.out.println("Total: " + pedido.getTotal());
         System.out.println("Guardando en la base de datos");
+
+        //pago
+        pago.realizar(pedido.getTotal());
+
+
+
 
         // NotificadorMail nl = new NotificadorMail(); sin inyeccion
 
@@ -44,7 +55,12 @@ public class PedidoService {
         // notificadorMail.enviar(pedido.getCorreo(), "Se ha creado un pedido");
 
         Notificador notificador = this.notificadorSelector.seleccionar(pedido.getTotal());
+        
         notificador.enviar(pedido.getDestino(), "Pedido registrado con exito");
+
+        TipoComprobante tipoComprobante = this.comprobanteSelector.seleccionarComprobante(pedido.getDestino());
+        tipoComprobante.tipoFacutura(pedido.getDestino());
+
 
     }
 
