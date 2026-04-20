@@ -1,0 +1,15 @@
+package uce.edu.ec.api.bodega;
+
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class AmbitoAplicacion {
+
+    private int contador;
+
+    public int incrementar(){
+
+        return contador++;
+    }
+
+}
