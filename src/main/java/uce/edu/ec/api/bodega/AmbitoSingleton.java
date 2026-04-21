@@ -1,9 +1,9 @@
 package uce.edu.ec.api.bodega;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Singleton;
 
-@ApplicationScoped
-public class AmbitoAplicacion {
+@Singleton
+public class AmbitoSingleton {
 
     private int contador;
 

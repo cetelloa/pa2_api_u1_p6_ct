@@ -1,10 +1,9 @@
 package uce.edu.ec.api.bodega;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 
-@ApplicationScoped
-public class AmbitoAplicacion {
-
+@Dependent
+public class AmbitoInject {
     private int contador;
 
     public int incrementar(){
@@ -12,5 +11,6 @@ public class AmbitoAplicacion {
         return contador++;
         //return ++contador;
     }
+
 
 }
