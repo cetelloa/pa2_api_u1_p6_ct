@@ -4,6 +4,7 @@ import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import jakarta.inject.Inject;
+import uce.edu.ec.api.ejemplo_scopes.*;
 
 @QuarkusMain
 public class Main {
@@ -17,60 +18,69 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private ClaseIntermedia claseIntermedia;
+        private SucursalDeVentas sucursalVentas;
 
+        // ApplicactionScope
         @Inject
-        private AmbitoAplicacion ambitoAplicacion;
+        private InventarioCentral inventarioCentral;
 
+        // Dependent
         @Inject
-        private AmbitoRequest ambitoRequest;
+        private TicketDeVenta ticketDeVenta;
 
+        // Singleton
         @Inject
-        private AmbitoInject ambitoInject;
-
-        @Inject
-        private AmbitoSingleton ambitoSingleton;
+        private GeneradorIdsUtilitario generadorIdsUtilitario;
 
         @Override
         public int run(String... args) {
 
-            System.out.println(this.ambitoAplicacion);
+            System.out.println("1. ESTADO AL INICIO");
+            System.out.println(" Local Principal Stock Global: " + inventarioCentral.obtenerStockActual());
+            System.out.println(" LOcal Principal Ticket: " + ticketDeVenta.obtenerResumen());
 
-            System.out.println(this.ambitoAplicacion.incrementar());
-            System.out.println(this.ambitoAplicacion.incrementar());
-            System.out.println(this.ambitoAplicacion.incrementar());
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------");
 
-            // int valor = this.ambitoAplicacion.incrementar();
+            System.out.println("2. LA SUCURSAL REALIZA UNA VENTA");
 
-            this.claseIntermedia.imprimirObjectoValor();
+            sucursalVentas.realizarOperacionVenta();
 
-            // System.out.println("**************************AMBITO
-            // REQUEST******************");
-            // System.out.println(this.ambitoRequest.incrementar());
-            // System.out.println(this.ambitoRequest.incrementar());
-            // System.out.println(this.ambitoRequest.incrementar());
+            // OTRA VENTA
 
-            // RequestScoped solo funciona en una aplicacion web
+            System.out.println("3. EL FLUJO PRINCIPAL REALIZA OTRA VENTA EXCLUSIVA");
 
-            System.out.println("**************************AMBITO DEPENDENT******************");
-            System.out.println(this.ambitoInject.incrementar());
-            System.out.println(this.ambitoInject.incrementar());
-            System.out.println(this.ambitoInject.incrementar());
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("Objeto Generador Utilitario (SINGLETON) - Main");
+            System.out.println(this.generadorIdsUtilitario);
 
-            // Dependent solo vive en el tiempo en el que dura la injeccion
-            this.claseIntermedia.imprimirObjectoValorInject();
+            String codigo2 = generadorIdsUtilitario.generarNuevoCodigoTransaccion();
+            System.out.println(" [Principal] Usando utilidad para ID: " + codigo2);
 
-        
-            System.out.println("**************************AMBITO SINGLETON******************");
-             this.claseIntermedia.imprimirObjectoValorSingleton();
-            System.out.println(this.ambitoSingleton.incrementar());
-            System.out.println(this.ambitoSingleton.incrementar());
-            System.out.println(this.ambitoSingleton.incrementar());
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("Objeto Ticket de Venta (DEPENDENT) - Main");
+            System.out.println(this.ticketDeVenta);
+            ticketDeVenta.agregarAlTicket(100.00);
+            ticketDeVenta.cerrarTicket();
 
-            this.claseIntermedia.imprimirObjectoValorSingleton();
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("Objeto Inventario Central (APPLICATION SCOPED) - Main");
+            System.out.println(this.inventarioCentral);
+            inventarioCentral.registrarVenta(3);
+
+            System.out.println("Comprobacion");
+
+            // Gracias al @ApplicationScoped el inventario cambia su estado globalmente
+            System.out.println("Stock global despues de las ventas: " + inventarioCentral.obtenerStockActual());
+            
+            //El ticket es propio de solo principal por @Dependent
+            System.out.println("Pincipal Ticket: "+ticketDeVenta.obtenerResumen());
+
             return 0;
         }
 
+
+        
     }
 
 }
