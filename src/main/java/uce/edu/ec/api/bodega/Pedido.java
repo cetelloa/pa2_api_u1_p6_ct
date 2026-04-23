@@ -1,16 +1,15 @@
 package uce.edu.ec.api.bodega;
 
-
 public class Pedido {
 
     private String cliente;
     private String producto;
     private double total;
     private String destino;
-    //private TipoPago tipoPago;
+    // private TipoPago tipoPago;
 
     public Pedido() {
-        
+
     }
 
     public String getCliente() {
@@ -44,12 +43,6 @@ public class Pedido {
     public void setDestino(String destino) {
         this.destino = destino;
     }
-
-
-
-
-
-
 
     public Pedido(String cliente, String producto, double total, String destino) {
         this.cliente = cliente;

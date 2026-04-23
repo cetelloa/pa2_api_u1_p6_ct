@@ -15,59 +15,28 @@ public class Main {
     }
 
     public static class App implements QuarkusApplication {
-
         @Inject
-        private ClaseIntermedia claseIntermedia;
-
+        private ProcesadorVentaService procesadorVentaService;
         @Inject
-        private AmbitoAplicacion ambitoAplicacion;
-
-        @Inject
-        private AmbitoRequest ambitoRequest;
-
-        @Inject
-        private AmbitoInject ambitoInject;
-
-        @Inject
-        private AmbitoSingleton ambitoSingleton;
+        private EstadisticasVentasGlobales estadisticasVentasGlobales;
 
         @Override
         public int run(String... args) {
 
-            System.out.println(this.ambitoAplicacion);
+            Venta v1 = new Venta("Carlos Tello", 70);
+            this.procesadorVentaService.procesar(v1);
 
-            System.out.println(this.ambitoAplicacion.incrementar());
-            System.out.println(this.ambitoAplicacion.incrementar());
-            System.out.println(this.ambitoAplicacion.incrementar());
 
-            // int valor = this.ambitoAplicacion.incrementar();
+            Venta v2 = new Venta("Jennyfer Obando", 40);
+            this.procesadorVentaService.procesar(v2);
 
-            this.claseIntermedia.imprimirObjectoValor();
+            Venta v3 = new Venta("Milena Macas", 20);
+            this.procesadorVentaService.procesar(v3);
 
-            // System.out.println("**************************AMBITO
-            // REQUEST******************");
-            // System.out.println(this.ambitoRequest.incrementar());
-            // System.out.println(this.ambitoRequest.incrementar());
-            // System.out.println(this.ambitoRequest.incrementar());
 
-            // RequestScoped solo funciona en una aplicacion web
+            this.estadisticasVentasGlobales.mostrarEstadisticasGlobales();
 
-            System.out.println("**************************AMBITO DEPENDENT******************");
-            System.out.println(this.ambitoInject.incrementar());
-            System.out.println(this.ambitoInject.incrementar());
-            System.out.println(this.ambitoInject.incrementar());
 
-            // Dependent solo vive en el tiempo en el que dura la injeccion
-            this.claseIntermedia.imprimirObjectoValorInject();
-
-        
-            System.out.println("**************************AMBITO SINGLETON******************");
-             this.claseIntermedia.imprimirObjectoValorSingleton();
-            System.out.println(this.ambitoSingleton.incrementar());
-            System.out.println(this.ambitoSingleton.incrementar());
-            System.out.println(this.ambitoSingleton.incrementar());
-
-            this.claseIntermedia.imprimirObjectoValorSingleton();
             return 0;
         }
 
