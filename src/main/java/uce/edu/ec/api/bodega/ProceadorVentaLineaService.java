@@ -3,9 +3,8 @@ package uce.edu.ec.api.bodega;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-//aqui se pone porque no guarda el estado 
 @ApplicationScoped
-public class ProcesadorVentaService {
+public class ProceadorVentaLineaService {
 
     @Inject
     private EstadisticasVentasGlobales estadisticasVentasGlobales;
@@ -19,12 +18,7 @@ public class ProcesadorVentaService {
     public void procesar(Venta venta) {
 
         this.trakingVenta.reinicar();
-
         this.trakingVenta.iniciar();
-
-        //es buena practica porque se pierde el control del ciclo de vida del objeto, se debe inyectar con @Inject para que el contenedor lo maneje
-        // this.trakingVenta = new TrakingVenta();
-        //
 
         // Inicio Venta
         System.out.println("Procesando Venta");
