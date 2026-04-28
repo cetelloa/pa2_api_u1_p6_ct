@@ -2,7 +2,7 @@ package uce.edu.ec.api.bodega;
 
 // @Getter
 // @Setter
-// @NoArgsConstructor
+// @AllArgsConstructor
 public class Venta {
 
     private String cliente;
@@ -10,24 +10,24 @@ public class Venta {
     private double total;
 
     public Venta(String cliente, double total) {
-    this.cliente = cliente;
-    this.total = total;
+        this.cliente = cliente;
+        this.total = total;
     }
 
     public String getCliente() {
-    return cliente;
+        return cliente;
     }
 
     public void setCliente(String cliente) {
-    this.cliente = cliente;
+        this.cliente = cliente;
     }
 
     public double getTotal() {
-    return total;
+        return total;
     }
 
     public void setTotal(double total) {
-    this.total = total;
+        this.total = total;
     }
 
 }

@@ -3,28 +3,17 @@ package uce.edu.ec.api.bodega;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-//aqui se pone porque no guarda el estado 
+
 @ApplicationScoped
-public class ProcesadorVentaService {
+public class ProcesarVentaServiceTimepo {
 
     @Inject
     private EstadisticasVentasGlobales estadisticasVentasGlobales;
 
-    // Aqui como injecto el traking venta se crea un objecto
-    @Inject
-    private TrakingVenta trakingVenta;
 
-    // los beans de negocio tienen al final service
-
+    @MedirTiempo
     public void procesar(Venta venta) {
 
-        this.trakingVenta.reinicar();
-
-        this.trakingVenta.iniciar();
-
-        //es mala practica porque se pierde el control del ciclo de vida del objeto, se debe inyectar con @Inject para que el contenedor lo maneje
-        // this.trakingVenta = new TrakingVenta();
-        
         // Inicio Venta
         System.out.println("Procesando Venta");
         // consultando el stock de cada item
@@ -41,10 +30,35 @@ public class ProcesadorVentaService {
 
         }
 
-        this.trakingVenta.finalizar();
+        // registrar Estadisticas
+        this.estadisticasVentasGlobales.resgistrarVenta(venta.getTotal());
+        System.out.println("Final del pedido ");
+
+    }
+
+
+    @MedirTiempo
+    public void reProcesar(Venta venta) {
+
+        // Inicio Venta
+        System.out.println("Reprocesando Venta");
+        // consultando el stock de cada item
+        // consulta en la base de datos
+        // finalizacion venta
+
+        // similar tiempo de demora
+
+        try {
+
+            Thread.sleep(250);
+
+        } catch (Exception e) {
+
+        }
 
         // registrar Estadisticas
         this.estadisticasVentasGlobales.resgistrarVenta(venta.getTotal());
+        System.out.println("Finalizando el reproceso del pedido ");
 
     }
 
