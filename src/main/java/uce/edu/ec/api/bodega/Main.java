@@ -18,25 +18,22 @@ public class Main {
         @Inject
         private ProcesarVentaServiceTimepo procesadorVentaServiceTiempo;
 
-        @Inject 
+        @Inject
         private InventarioService inventarioService;
-
 
         @Override
         public int run(String... args) {
 
             Venta v1 = new Venta("Carlos Tello", 70);
             this.procesadorVentaServiceTiempo.procesar(v1);
-            this.procesadorVentaServiceTiempo.reProcesar(v1);
+            // this.procesadorVentaServiceTiempo.reProcesar(v1);
 
-            System.out.println("---------------------------------");
-            System.out.println("---------------------------------");
+            System.out.println("--------------------------------");
+            System.out.println("--------------------------------");
 
-            Inventario i1 = new Inventario("Coca Cola", 100);
-            this.inventarioService.registrarInventario(i1);
+            // Inventario i1 = new Inventario("Coca Cola", 100);
+            // this.inventarioService.registrarInventario(i1);
 
-        
-    
             return 0;
         }
 

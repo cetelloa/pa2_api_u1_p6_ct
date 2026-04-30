@@ -12,6 +12,7 @@ public class ProcesarVentaServiceTimepo {
 
 
     @MedirTiempo
+    @Log
     public void procesar(Venta venta) {
 
         // Inicio Venta
@@ -34,11 +35,15 @@ public class ProcesarVentaServiceTimepo {
         this.estadisticasVentasGlobales.resgistrarVenta(venta.getTotal());
         System.out.println("Final del pedido ");
 
+        //Prueba 
+      //this.reProcesar(venta);
+
     }
 
 
     @MedirTiempo
-    public void reProcesar(Venta venta) {
+    protected void reProcesar(Venta venta) {
+
 
         // Inicio Venta
         System.out.println("Reprocesando Venta");

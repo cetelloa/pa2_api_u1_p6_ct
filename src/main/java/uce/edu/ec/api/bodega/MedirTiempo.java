@@ -23,6 +23,5 @@ import jakarta.interceptor.InterceptorBinding;
 
 public @interface MedirTiempo {
 
-    
 
 }
