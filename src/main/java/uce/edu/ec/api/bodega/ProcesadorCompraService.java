@@ -1,8 +1,6 @@
 package uce.edu.ec.api.bodega;
 
 import jakarta.enterprise.context.ApplicationScoped;
-
-//jackarta enterprice 
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 
